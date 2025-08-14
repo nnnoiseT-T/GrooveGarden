@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.groovegarden.ui.MainController" spacing="8" style="-fx-background-color: #f8f9fa;">
+    
+    <!-- Header with title and main controls -->
+    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #ffffff; -fx-padding: 15; -fx-border-color: #e9ecef; -fx-border-width: 0 0 1 0;">
+        <Label text="Groove Garden" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #495057;"/>
+        
+        <Separator orientation="VERTICAL" prefHeight="25" style="-fx-background-color: #dee2e6;"/>
+        
+        <VBox spacing="2" alignment="CENTER_LEFT">
+            <Label text="Scale" style="-fx-font-size: 11px; -fx-text-fill: #6c757d;"/>
+            <ComboBox fx:id="scaleComboBox" prefWidth="100" style="-fx-background-color: #ffffff; -fx-border-color: #ced4da;"/>
+        </VBox>
+        
+        <VBox spacing="2" alignment="CENTER_LEFT">
+            <Label text="Tempo" style="-fx-font-size: 11px; -fx-text-fill: #6c757d;"/>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Spinner fx:id="tempoSpinner" prefWidth="80" editable="true" style="-fx-background-color: #ffffff; -fx-border-color: #ced4da;"/>
+                <Label text="BPM" style="-fx-font-size: 11px; -fx-text-fill: #6c757d;"/>
+            </HBox>
+        </VBox>
+        
+        <VBox spacing="5" alignment="CENTER">
+            <Button fx:id="startButton" text="Start" onAction="#handleStart" 
+                    style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 5;"/>
+            <Button fx:id="stopButton" text="Stop" onAction="#handleStop" disable="true"
+                    style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 5;"/>
+        </VBox>
+        
+        <VBox spacing="5" alignment="CENTER">
+            <Button fx:id="resetButton" text="Reset" onAction="#handleReset"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 5;"/>
+            <Button fx:id="exportButton" text="Export" onAction="#handleExport"
+                    style="-fx-background-color: #17a2b8; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 5;"/>
+        </VBox>
+    </HBox>
+    
+    <!-- Main content area -->
+    <HBox spacing="15" style="-fx-padding: 15;">
+        
+        <!-- Left side: Grid and controls -->
+        <VBox spacing="12" alignment="TOP_CENTER">
+            <Label text="Algorithm Seeds Grid" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #495057;"/>
+            <Label text="Left-click: toggle • Right-click: cycle layer" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+            
+            <GridPane fx:id="gridPane" hgap="2" vgap="2" 
+                      style="-fx-background-color: #ffffff; -fx-padding: 8; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"/>
+        </VBox>
+        
+        <!-- Right side: Info panels -->
+        <VBox spacing="0" prefWidth="180" alignment="TOP_CENTER">
+            
+            <!-- Scoring - positioned at top -->
+            <VBox spacing="6" prefHeight="120" style="-fx-background-color: #ffffff; -fx-padding: 12; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8;">
+                <Label text="Real-time Scoring" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                
+                <VBox spacing="8" style="-fx-padding: 8 0 0 0;">
+                    <VBox spacing="4">
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label text="Diversity" style="-fx-font-size: 12px; -fx-text-fill: #6c757d; -fx-min-width: 50;"/>
+                            <ProgressBar fx:id="diversityBar" prefWidth="80" prefHeight="10" style="-fx-accent: #17a2b8;"/>
+                            <Label fx:id="diversityLabel" text="0%" style="-fx-font-size: 12px; -fx-text-fill: #6c757d; -fx-min-width: 25;"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox spacing="4">
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label text="Flow" style="-fx-font-size: 12px; -fx-text-fill: #6c757d; -fx-min-width: 50;"/>
+                            <ProgressBar fx:id="flowBar" prefWidth="80" prefHeight="10" style="-fx-accent: #28a745;"/>
+                            <Label fx:id="flowLabel" text="0%" style="-fx-font-size: 12px; -fx-text-fill: #6c757d; -fx-min-width: 25;"/>
+                        </HBox>
+                    </VBox>
+                    
+                    <VBox spacing="4">
+                        <HBox spacing="8" alignment="CENTER_LEFT">
+                            <Label text="Harmony" style="-fx-font-size: 12px; -fx-text-fill: #6c757d; -fx-min-width: 50;"/>
+                            <ProgressBar fx:id="harmonyBar" prefWidth="80" prefHeight="10" style="-fx-accent: #ffc107;"/>
+                            <Label fx:id="harmonyLabel" text="0%" style="-fx-font-size: 12px; -fx-text-fill: #6c757d; -fx-min-width: 25;"/>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </VBox>
+            
+            <!-- Spacer to center the legend -->
+            <Region style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS"/>
+            
+            <!-- Legend - positioned in center -->
+            <VBox spacing="6" prefHeight="120" style="-fx-background-color: #ffffff; -fx-padding: 12; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8;">
+                <Label text="Grid Legend" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                <VBox spacing="6" style="-fx-padding: 8 0 0 0;">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="⬜" style="-fx-font-size: 16px;"/>
+                        <Label text="Inactive" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                    </HBox>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="🔵" style="-fx-font-size: 16px;"/>
+                        <Label text="Rhythm layer" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                    </HBox>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="🟢" style="-fx-font-size: 16px;"/>
+                        <Label text="Melody layer" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                    </HBox>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Label text="🔴" style="-fx-font-size: 16px;"/>
+                        <Label text="Both layers" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+            
+            <!-- Spacer to push info to bottom -->
+            <Region style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS"/>
+            
+            <!-- Info - at the very bottom -->
+            <VBox spacing="6" prefHeight="120" style="-fx-background-color: #ffffff; -fx-padding: 12; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-background-radius: 8;">
+                <Label text="How it works" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #495057;"/>
+                <VBox spacing="6" style="-fx-padding: 8 0 0 0;">
+                    <Label text="• Place seeds on the grid" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                    <Label text="• Algorithms generate music" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                    <Label text="• Real-time scoring feedback" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                    <Label text="• Export your compositions" style="-fx-font-size: 12px; -fx-text-fill: #6c757d;"/>
+                </VBox>
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox> 

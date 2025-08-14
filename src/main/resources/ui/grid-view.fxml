@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="com.groovegarden.ui.GridViewController">
+    
+    <GridPane fx:id="gridPane" hgap="1" vgap="1" 
+              style="-fx-background-color: #333; -fx-padding: 1; -fx-border-color: #666; -fx-border-width: 2;"/>
+    
+</VBox> 
